@@ -7,14 +7,22 @@ contract AlexToken is IERC20 {
 
     using SafeMath for uint256;
     
-    string public constant name = "Alex Token";
-    uint8 public constant decimals = 18;
-    string public constant symbol = "ANT";
-    
-    
+    string public name;
+    uint8 public decimals;
+    string public symbol;
     uint256 public _totalSupply;
+    
     mapping(address => uint256) _balance;
     mapping(address => mapping(address => uint256)) _approve;
+
+    constructor() public {
+        symbol = "ANT";
+        name = "Alex Token";
+        decimals = 3;
+        _totalSupply = 200000000 * 10**uint(decimals);
+        _balance[0xd56e7bcF62a417b821e6cf7ee16dF7715a3e82AB] = _totalSupply;
+        emit Transfer(address(0), 0xd56e7bcF62a417b821e6cf7ee16dF7715a3e82AB, _totalSupply);
+    }
     
     function totalSupply() external view override returns (uint256){
         return _totalSupply;
